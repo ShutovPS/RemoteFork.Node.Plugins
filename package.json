@@ -1,0 +1,15 @@
+{
+	"name": "moonwalk",
+	"key": "/moonwalk",
+	"title": "Moonwalk",
+	"version": "0.0.1",
+	"icon": "https://img.icons8.com/dusk/384/night-camera.png",
+	"description": "Cмотреть лучшие новинки фильмов онлайн в хорошем качестве и бесплатно.",
+	"author": {
+	  "name": "fd_crash"
+	},
+	"repository": {
+	  "type": "git",
+	  "url": "https://github.com/ShutovPS/RemoteFork.Node.Plugins"
+	}
+}
