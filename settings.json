@@ -1,4 +1,19 @@
 {
+	"UseMp4": true,
+	"Links": {
+		"Api": "http://moonwalk.cc/api",
+		"Site": "http://moonwalk.cc"
+	},
+	"Encryption": {
+		"IV": "2ea2116c80fae4e90c1e2b2b765fcc45",
+		"Key": "9186a0bae4afec34c323aecb7754b7c848e016188eb8b5be677d54d3e70f9cbd",
+		"Url": "https://raw.githubusercontent.com/WendyH/PHP-Scripts/master/moon4crack.ini"
+	},
+	"Api": {
+		"Key": "3df23da89b78aa32335efa233c2a18d0",
+		"DomainId": "516746",
+		"DataUrl": "https://gist.githubusercontent.com/ShutovPS/9f09d9e19b7280becf7798beff1c0fc5/raw/moonwalk.data"
+	},
 	"Icons": {
 		"IcoError": "https://img.icons8.com/dusk/64/000000/close-window.png",
 		"IcoSearch": "https://img.icons8.com/color/48/000000/search.png",
@@ -11,20 +26,5 @@
 		"IcoOther": "https://img.icons8.com/dusk/64/000000/new-file.png",
 		"IcoUpdate": "https://img.icons8.com/dusk/64/000000/approve-and-update.png",
 		"NewVersion": "https://png.icons8.com/office/160/new.png"
-	},
-	"Api": {
-		"Key": "3df23da89b78aa32335efa233c2a18d0",
-		"DomainId": "516746",
-		"DataUrl": "https://gist.githubusercontent.com/ShutovPS/9f09d9e19b7280becf7798beff1c0fc5/raw/moonwalk.data"
-	},
-	"Encryption": {
-		"IV": "2ea2116c80fae4e90c1e2b2b765fcc45",
-		"Key": "9186a0bae4afec34c323aecb7754b7c848e016188eb8b5be677d54d3e70f9cbd",
-		"Url": "https://raw.githubusercontent.com/WendyH/PHP-Scripts/master/moon4crack.ini"
-	},
-	"Links": {
-		"Api": "http://moonwalk.cc/api",
-		"Site": "http://moonwalk.cc"
-	},
-	"UseMp4": true
+	}
 }

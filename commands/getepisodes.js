@@ -28,10 +28,14 @@ const FileItem  = require("../../../playlist/file-item");
 const PlayList = require("../../../playlist/playlist");
 
 router.get(`/`, async function (req, res) {
-    await getEpisodes(res, req.query.url, req.query.referer);
+    await getEpisodes(res, req.baseUrl, req.query.url, req.query.referer);
 });
 
-async function getEpisodes(res, url, referer) {
+async function getEpisodes(res, baseUrl, url, referer) {
+    if (baseUrl.endsWith(KEY)) {
+        baseUrl = baseUrl.substring(0, baseUrl.lastIndexOf(KEY));
+    }
+
     const playList = new PlayList();
     playList.Menu = getRoot.getMenuItems(baseUrl);
 
@@ -120,12 +124,6 @@ async function parseEpisodesData(playList, moonwalkUrl, scriptRef, o, doubleChec
         headers:{ "User-Agent": programSettings.Environment.UserAgent}
     };
 
-    console.log(options.url);
-    console.log(q);
-    console.log(scriptRef);
-    console.log(options.form);
-    console.log(options.headers["User-Agent"]);
-
     const sendPost = async () => {
         try {
             const body = await request.post(options);
@@ -188,7 +186,7 @@ async function parseLinksData(playList, url, useMp4) {
         }
         
         url = replaceUnicodeSymbols(url);
-        console.log(url);
+        console.log(KEY, url);
 
         try {
             const body = await request.get(url);
@@ -211,7 +209,7 @@ async function parseLinksData(playList, url, useMp4) {
                 playList.Items.push(item);
             }
         } catch(error) {
-            console.error(error);
+            console.error(EKY, error);
         }   
     }
 }
@@ -241,5 +239,4 @@ function createLink(baseUrl, file, referer) {
 
     return url;
 }
-
 module.exports.createLink = createLink;

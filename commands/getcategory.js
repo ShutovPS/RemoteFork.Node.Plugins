@@ -24,19 +24,11 @@ const filmModel = require("../models/film-model");
 const DirectoryItem = require("../../../playlist/directory-item");
 const PlayList = require("../../../playlist/playlist");
 
-router.get(`/:path`, async function (req, res) {
-    await processResponse(req.baseUrl, res, req.params.path);
-});
-
-router.get(`/:path/:category`, async function (req, res) {
-    await processResponse(req.baseUrl, res, req.params.path, req.params.category);
-});
-
 router.get(`/:path/:category/:page`, async function (req, res) {
-    await processResponse(req.baseUrl, res, req.params.path, req.params.category, req.params.page);
+    await processResponse(res, req.baseUrl, req.params.path, req.params.category, req.params.page);
 });
 
-async function processResponse(baseUrl, res, path, category, page) {
+async function processResponse(res, baseUrl, path, category, page) {
     if (baseUrl.endsWith(KEY)) {
         baseUrl = baseUrl.substring(0, baseUrl.lastIndexOf(KEY));
     }
@@ -69,7 +61,6 @@ async function getFilmsItems(playList, options) {
         console.error(KEY, error);
     }
 }
-
 module.exports.getFilmsItems = getFilmsItems;
 
 function getFilmsItemsFromHtml(playList, response, options) {
@@ -92,23 +83,14 @@ function getFilmsItemsFromHtml(playList, response, options) {
                 playList.Items.push(item);
             }
         }
-
-        if (!options.search) {
-            const regex = /(\&page\=)(\d+)/;
-
-            let page = 1;
-
-            if (regex.exec(options.url)) {
-                page = parseInt(regex.match(options.url)[2]);
+        
+        if (playList.Items.length !== 0) {
+            if (!options.search) {
+                playList.NextPageUrl = createLink(options.baseUrl, options.path, options.category, parseInt(options.page) + 1);
             }
-
-            options.page = page + 1;
-
-            playList.NextPageUrl = createLink(options.baseUrl, options.path, options.category, options.page);
         }
     }
 }
-module.exports.getFilmsItems = getFilmsItems;
 
 function getItem(baseUrl, film, baseItem) {
     if (film.serial != undefined) {
@@ -127,19 +109,12 @@ function getItem(baseUrl, film, baseItem) {
 function createLink(baseUrl, path, category, page) {
     let url = `${configs.remoteForkAddress}${baseUrl}${KEY}`;
 
-    if (path) {
-        url = url + "/" + path;
-    }
+    url = url + "/" + path;
     
-    if (category) {
-        url = url + "/" + category;
-    }
+    url = url + "/" + (category || "All");
     
-    if (page) {
-        url = url + "/" + page;
-    }
+    url = url + "/" + (page || "1");
 
     return url;
 }
-
 module.exports.createLink = createLink;

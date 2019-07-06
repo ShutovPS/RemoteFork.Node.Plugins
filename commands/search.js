@@ -2,8 +2,6 @@
 
 const KEY = "/search";
 
-const httpStatus = require("http-status-codes");
-
 const express = require("express");
 const router = express.Router();
 
@@ -20,6 +18,8 @@ const getCategory = require("./getcategory");
 
 const PlayList = require("../../../playlist/playlist");
 
+const searchPage = "videos";
+
 router.get(`/`, async function (req, res) {
     await processResponse(res, req.baseUrl, req.query.search);
 });
@@ -31,14 +31,16 @@ async function processResponse(res, baseUrl, search) {
 
     search = encodeURIComponent(search);
 
-    let url = `${pluginSettings.Links.Api}/videos.json?title=${search}&api_token=${pluginSettings.Api.Key}`;
+    let url = `${pluginSettings.Links.Api}/${searchPage}.json?title=${search}&api_token=${pluginSettings.Api.Key}`;
 
     const playList = new PlayList();
 
     const options = {
         baseUrl: baseUrl, 
         url: url, 
-        search: true
+        path: searchPage, 
+        page: 1,
+        search: search
     }
 
     await getCategory.getFilmsItems(playList, options);
@@ -46,9 +48,6 @@ async function processResponse(res, baseUrl, search) {
 }
 
 function createLink(baseUrl) {
-    let url = `${configs.remoteForkAddress}${baseUrl}${KEY}`;
-
-    return url;
+    return `${configs.remoteForkAddress}${baseUrl}${KEY}`;
 }
-
 module.exports.createLink = createLink;
