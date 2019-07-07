@@ -44,7 +44,7 @@ function getDescription(item) {
 
         if (item.season_episodes_count != undefined) {
             sb.appendFormat("<strong><span style=\"color: #ff9900;\">Сезоны:</span></strong> {0}<br />", 
-                item.season_episodes_count);
+                item.season_episodes_count.length);
         }
 
         if (item.source_type && item.source_type.length > 3) {
